@@ -26,7 +26,7 @@ def main() -> None:
             # key input handling later
             key = term.inkey()
 
-            # force buffer update to prevent screen flickering
+            # reduce buffer output to prevent screen flickering
             for _ in range(10):
                 print(' ', flush=True)
 
