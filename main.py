@@ -29,7 +29,6 @@ def main() -> None:
             # force buffer update to prevent screen flickering
             for _ in range(10):
                 print(' ', flush=True)
-                # print(' ', end='', flush=True)
 
 
     print(readoptions())
