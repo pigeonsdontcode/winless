@@ -1,0 +1,19 @@
+[
+    [
+        "test_option",
+        [
+            "Test Option",
+            "helloworld.ps1",
+            [
+                [
+                    "hello_world",
+                    [
+                        "Print hello world",
+                        "Printing hello world...",
+                        "Test1"
+                    ], false
+                ]
+            ]
+        ]
+    ]
+]
