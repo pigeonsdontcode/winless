@@ -15,12 +15,17 @@ def run_tui(
     with (
         term.fullscreen(),
         term.cbreak(),
-        term.hidden_cursor()
+        term.hidden_cursor(),
+        term.mouse_enabled(report_motion=True)
         ):
 
         # menu logic starts here
         while True:
-            print(term.clear, flush=True)
+            print(
+                term.clear,
+                flush=True,
+                end=''
+            )
 
             global i; i = 0
 
@@ -49,7 +54,9 @@ def run_tui(
                     )
 
             # key handling
-            match(term.inkey().name):
+            key = term.inkey()
+
+            match(key.name):
                 # arrow key up bind,
                 # will decrement eventual selection to move the arrow up
                 case 'KEY_UP':
@@ -66,9 +73,18 @@ def run_tui(
                     break
                 # None for now defines space bar, but also binds to other keys
                 # due to lib tomfoolery, will likely need a replacement later
-                case None:
+                case None | 'MOUSE_LEFT':
                     check(options, sel.value)
+                # mouse movement, MOUSE_LEFT speaks for itself,
+                # hover over options and click on them to check them
+                # will cause screen flickering
+                # due to inconsistent buffer output + fast mouse input
+                case 'MOUSE_MOTION':
+                    y = key.mouse_yx[0]
+                    if 0 <= y < i:
+                        sel.selection = y + 1
 
             # reduce buffer output to prevent screen flickering
-            for _ in range(10):
+            # why does it do that? IDK don't ask me
+            for _ in range(18):
                 print(' ', flush=True)
