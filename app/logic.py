@@ -76,6 +76,3 @@ def collectplanned(arr, planned):
             continue
 
         planned.append(arr)
-
-    print(planned)
-    __import__('time').sleep(5)
