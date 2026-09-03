@@ -1,25 +1,25 @@
 import pathlib
 from blessed import Terminal
-from app.data import fetchoptions
-from app.powershell import handleplanned
+from app.data import collect_options
+from app.powershell import handle_tasks
 from app.menu import (
     Selection,
     fmt,
 )
 from app.logic import (
     check,
-    collectplanned,
-    changeselection
+    collect_tasks,
+    change_selection
 )
 
 def main() -> None:
     term = Terminal()
 
     sel = Selection()
-    options = fetchoptions()
+    options = collect_options()
 
-    global planned
-    planned = []
+    global tasks
+    tasks = []
 
     with (
         term.fullscreen(),
@@ -63,16 +63,16 @@ def main() -> None:
                 # arrow key up bind,
                 # will decrement eventual selection to move the arrow up
                 case 'KEY_UP':
-                    changeselection('up', sel, i)
+                    change_selection('up', sel, i)
                 # arrow key down bind,
                 # will incremenet selection to move arrow down
                 case 'KEY_DOWN':
-                    changeselection('down', sel, i)
+                    change_selection('down', sel, i)
                 # enter key bind,
                 # will accent and proceed with the selected functions
                 # (and exiting selection menu)
                 case 'KEY_ENTER':
-                    collectplanned(options, planned)
+                    collect_tasks(options, tasks)
                     break
                 # None for now defines space bar, but also binds to other keys
                 # due to lib tomfoolery, will likely need a replacement later
@@ -88,9 +88,9 @@ def main() -> None:
     print(path)
 
     print("run!")
-    print(planned)
+    print(tasks)
 
-    handleplanned(planned, path)
+    handle_tasks(tasks, path)
 
 if __name__ == "__main__":
     try:

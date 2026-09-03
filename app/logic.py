@@ -1,4 +1,4 @@
-def changeselection(direction: str, selection, increment: int):
+def change_selection(direction: str, selection, increment: int):
     match(direction):
         case 'up':
             if selection.value > selection.default:
@@ -54,7 +54,7 @@ def check(arr, selection):
         item[1][3] = not item[1][3]
 
 # reminder: document option positions later!!!!!!
-def collectplanned(arr, planned):
+def collect_tasks(arr, tasks):
     for parent in arr:
         arr = []
         arr.append([
@@ -75,4 +75,4 @@ def collectplanned(arr, planned):
         if len(arr[1]) == 0:
             continue
 
-        planned.append(arr)
+        tasks.append(arr)

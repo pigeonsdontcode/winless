@@ -1,5 +1,4 @@
 from builtins import print as _p
-from app.logic import changeselection, check, collectplanned
 
 # rewrite print functions to enable flush by default
 # to reduce output buffering and minimize tui flickering

@@ -21,8 +21,8 @@ def run(path, script, func):
 
     return process.stdout
 
-def handleplanned(planned, path):
-    for option in planned:
+def handle_tasks(tasks, path):
+    for option in tasks:
         name, script = option[0]
         print(f"runtime path: {path / script}")
         print(f"\nfeature name: {name}\nscript name: {script}")
