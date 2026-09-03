@@ -47,3 +47,22 @@ class Selection:
     @property
     def decrement(self) -> None:
         self.selection -= 1
+
+def fmt(
+    content: str,
+    # require selection, checked & parent states
+    selected: bool,
+    checked: bool,
+    parent: bool = False
+    ) -> str:
+
+    p = pfx.parent if parent else pfx.child
+
+    pfxmap = {
+        (False, False): p.base,
+        (True, False): p.base_hover,
+        (False, True): p.checked,
+        (True, True): p.checked_hover,
+    }
+    
+    return pfxmap[(selected, checked)] + content
