@@ -1,6 +1,7 @@
 import pathlib
 from blessed import Terminal
 from app.data import fetchoptions
+from app.powershell import handleplanned
 from app.menu import (
     Selection,
     fmt,
@@ -88,6 +89,8 @@ def main() -> None:
 
     print("run!")
     print(planned)
+
+    handleplanned(planned, path)
 
 if __name__ == "__main__":
     try:
