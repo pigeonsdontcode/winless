@@ -13,7 +13,6 @@ def main() -> None:
 
     global tasks; tasks = []
 
-    # abstract main.py as much as possible!!!
     run_tui(
         term,
         sel,
@@ -22,11 +21,6 @@ def main() -> None:
     )
 
     path = pathlib.Path.cwd() / "scripts"
-
-    print(path)
-
-    print("run!")
-    print(tasks)
 
     handle_tasks(tasks, path)
 
