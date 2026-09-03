@@ -68,33 +68,3 @@ def fmt(
     }
 
     return pfxmap[(selected, checked)] + content
-
-def handlekey(
-        key,
-        selection: Selection,
-        increment: int,
-        arr: list,
-        planned: list
-        ) -> None:
-    # possible menu keybinds
-    binds = {
-        # arrow key up bind,
-        # will decrement eventual selection to move the arrow up
-        'KEY_UP': lambda: changeselection('up', selection, increment),
-        # arrow key down bind,
-        # will incremenet selection to move arrow down
-        'KEY_DOWN': lambda: changeselection('down', selection, increment),
-        # enter key bind,
-        # will accent and proceed with the selected functions
-        # (and exiting selection menu)
-        'KEY_ENTER': lambda: collectplanned(arr, planned),
-        # None for now defines space bar, but also binds to other keys
-        # due to lib tomfoolery, will likely need a replacement later
-        None: lambda: check(arr, selection.value)
-    }
-
-
-    action = binds.get(key)
-    # linter error wants me to handle None (the dict can't return None)
-    if action != None:
-        action()

@@ -1,9 +1,14 @@
+import pathlib
 from blessed import Terminal
 from app.data import fetchoptions
 from app.menu import (
     Selection,
     fmt,
-    handlekey
+)
+from app.logic import (
+    check,
+    collectplanned,
+    changeselection
 )
 
 def main() -> None:
@@ -52,13 +57,34 @@ def main() -> None:
                         flush=True
                     )
 
-            # key input handling later
-            key = term.inkey()
-            handlekey(key.name, sel, i, options, planned)
+            # key handling
+            match(term.inkey().name):
+                # arrow key up bind,
+                # will decrement eventual selection to move the arrow up
+                case 'KEY_UP':
+                    changeselection('up', sel, i)
+                # arrow key down bind,
+                # will incremenet selection to move arrow down
+                case 'KEY_DOWN':
+                    changeselection('down', sel, i)
+                # enter key bind,
+                # will accent and proceed with the selected functions
+                # (and exiting selection menu)
+                case 'KEY_ENTER':
+                    collectplanned(options, planned)
+                    break
+                # None for now defines space bar, but also binds to other keys
+                # due to lib tomfoolery, will likely need a replacement later
+                case None:
+                    check(options, sel.value)
 
             # reduce buffer output to prevent screen flickering
             for _ in range(10):
                 print(' ', flush=True)
+
+    path = pathlib.Path.cwd() / "scripts"
+
+    print(path)
 
     print("run!")
     print(planned)
