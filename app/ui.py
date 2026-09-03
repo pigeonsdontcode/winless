@@ -1,4 +1,7 @@
-from app.menu import fmt
+from app.menu import (
+    fmt,
+    title
+)
 from app.logic import (
     check,
     collect_tasks,
@@ -26,6 +29,8 @@ def run_tui(
                 flush=True,
                 end=''
             )
+
+            print(title, flush=True)
 
             global i; i = 0
 
@@ -80,9 +85,14 @@ def run_tui(
                 # will cause screen flickering
                 # due to inconsistent buffer output + fast mouse input
                 case 'MOUSE_MOTION':
+                    # raw mouse y doesn't dynamically align with the options
+                    # we'll define the difference in lines between 0 (where the title currently is)
+                    # and where the actual options start showing up
+                    diff = len(title.splitlines()) + 1
                     y = key.mouse_yx[0]
-                    if 0 <= y < i:
-                        sel.selection = y + 1
+
+                    if (0 + diff) <= y < (i + diff):
+                        sel.selection = (y + 1) - diff
 
             # reduce buffer output to prevent screen flickering
             # why does it do that? IDK don't ask me

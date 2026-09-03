@@ -13,6 +13,7 @@ class clr:
     bright = s.BRIGHT
     dim = s.DIM
 
+    lightblue = f.CYAN
     blue = f.LIGHTBLUE_EX
     white = f.WHITE
     yellow = f.LIGHTYELLOW_EX
@@ -29,7 +30,7 @@ class pfx:
 
             self.base = f'{indent}  [ ] '
             self.base_hover = f'{indent}{clr.blue}> [ ] '
-            self.checked = f'{indent}  [{clr.yellow}X{clr.r}] '
+            self.checked = f'{indent}  [{clr.lightblue}X{clr.r}] '
             self.checked_hover = f'{indent}{clr.blue}> [X] '
 
     parent = box()
@@ -73,3 +74,15 @@ def fmt(
         msg = (clr.white if parent else clr.gray) + msg
 
     return pfxmap[(selected, checked)] + msg
+
+s = ' ' * 2
+title = \
+f"""
+{s}╭─ {clr.lightblue}Winless{clr.r} ──────────────────────────────────────────────╮
+{s}│ Small utility tweak menu for Windows                   │
+{s}│ {clr.gray}                                                     {clr.r}  │
+{s}│ {clr.gray}Navigate the selection menu with the arrow keys (↑ ↓)  {clr.r}│
+{s}│ {clr.gray}or hover over them with your mouse                   {clr.r}  │
+{s}│ {clr.gray}Select the checkboxes with SPACE or left mouse click {clr.r}  │
+{s}╰────────────────────────────────────────────────────────╯
+"""
