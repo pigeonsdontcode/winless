@@ -1,41 +1,44 @@
 from builtins import print as _p
+from colorama import (
+    Fore as f,
+    Style as s,
+    init
+)
 
-# rewrite print functions to enable flush by default
-# to reduce output buffering and minimize tui flickering
-def print(*args, **kwargs):
-    kwargs.setdefault("flush", True)
-    _p(*args, **kwargs)
+init(autoreset=True)
+
+class clr:
+    r = f.RESET
+
+    bright = s.BRIGHT
+    dim = s.DIM
+
+    blue = f.LIGHTBLUE_EX
+    white = f.WHITE
+    yellow = f.LIGHTYELLOW_EX
+    gray = f.LIGHTBLACK_EX
 
 class pfx:
     global spacing, uiprefix
     spacing = ' '*3
-    uiprefix = '|'
+    # uiprefix = ' '
 
-    class parent:
-        pre = uiprefix + spacing
+    class box:
+        def __init__(self, indent: str = '') -> None:
+            self.indent = indent
 
-        # use formatted strings to add colors later
-        base = f'{pre} [ ] '
-        base_hover = f'{pre}>[ ] '
-        checked = f'{pre} [X] '
-        checked_hover = f'{pre}>[X] '
+            self.base = f'{indent}  [ ] '
+            self.base_hover = f'{indent}{clr.blue}> [ ] '
+            self.checked = f'{indent}  [{clr.yellow}X{clr.r}] '
+            self.checked_hover = f'{indent}{clr.blue}> [X] '
 
-    class child:
-        pre = uiprefix + (spacing * 2)
-
-        base = f'{pre} [ ] '
-        base_hover = f'{pre}>[ ] '
-        checked = f'{pre} [X] '
-        checked_hover = f'{pre}>[X] '
+    parent = box()
+    child = box(spacing)
 
 class Selection:
     def __init__(self) -> None:
         self.default = 1
         self.selection = self.default
-
-    # just incase we might use int method (probably not)
-    def __int__(self):
-        return self.selection
 
     @property
     def value(self) -> int:
@@ -50,7 +53,7 @@ class Selection:
         self.selection -= 1
 
 def fmt(
-    content: str,
+    msg: str,
     # require selection, checked & parent states
     selected: bool,
     checked: bool,
@@ -66,4 +69,7 @@ def fmt(
         (True, True): p.checked_hover,
     }
 
-    return pfxmap[(selected, checked)] + content
+    if not selected:
+        msg = (clr.white if parent else clr.gray) + msg
+
+    return pfxmap[(selected, checked)] + msg
