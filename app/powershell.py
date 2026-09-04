@@ -16,7 +16,7 @@ def run(path, script, func):
     )
 
     if process.stderr:
-        print("error ocurred")
         raise Exception("its not the wrapper this time!")
 
+    # powershell output isn't used, might need to be removed later
     return process.stdout

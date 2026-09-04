@@ -1,4 +1,3 @@
-from builtins import print as _p
 from colorama import (
     Fore as f,
     Style as s,
@@ -22,10 +21,6 @@ class clr:
     green = f.LIGHTGREEN_EX
 
 class pfx:
-    global spacing, uiprefix
-    spacing = ' '*3
-    # uiprefix = ' '
-
     class box:
         def __init__(self, indent: str = '') -> None:
             self.indent = indent
@@ -36,7 +31,7 @@ class pfx:
             self.checked_hover = f'{indent}{clr.blue}> [X] '
 
     parent = box()
-    child = box(spacing)
+    child = box(' ' * 3)
 
 class Selection:
     def __init__(self) -> None:
@@ -65,6 +60,7 @@ def fmt(
 
     p = pfx.parent if parent else pfx.child
 
+    # ( is item selected?, is item checked?)
     pfxmap = {
         (False, False): p.base,
         (True, False): p.base_hover,
@@ -86,5 +82,6 @@ f"""
 {s}│ {clr.gray}Navigate the selection menu with the arrow keys (↑ ↓)  {clr.r}│
 {s}│ {clr.gray}or hover over them with your mouse                   {clr.r}  │
 {s}│ {clr.gray}Select the checkboxes with SPACE or left mouse click {clr.r}  │
+{s}│ {clr.gray}Press 'ENTER' to apply the selected options {clr.r}           │
 {s}╰────────────────────────────────────────────────────────╯
 """
