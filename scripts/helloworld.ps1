@@ -7,7 +7,7 @@ function Test2() {
 }
 
 function openCalc() {
-    Start-Process calc.exe
+    Start-Process calc.ex
 }
 
 function openSettings() {
