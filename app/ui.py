@@ -108,6 +108,7 @@ def run_tasks(
     path
     ) -> tuple:
 
+    # we run another tui instance, no fullscreen this time
     with (
         term.cbreak(),
         term.hidden_cursor()
@@ -116,11 +117,12 @@ def run_tasks(
         while True:
             total = 0
 
+            # find total task count to display
             for task in tasks:
                 for _ in task[1]:
                     total += 1
 
-            print(f"{total} task{'s' if total != 1 else ''} found", flush=True)
+            print(f"\n{clr.blue}{total}{clr.r} task{'s' if total != 1 else ''} found", flush=True)
 
             current = 0
             failed = 0
@@ -130,16 +132,23 @@ def run_tasks(
                 print(f"\nRunning: {name}", flush=True)
                 for option in task[1]:
                     current += 1
-                    prefix = f" {clr.gray}{current}{clr.r}/{clr.gray}{total}{clr.r} "
+                    last = clr.gray if current != total else clr.white
+
+                    prefix = f" {last}{current}{clr.r}/{last}{total}{clr.r} "
+                    prefixerr = f" {clr.red}{current}{clr.r}/{last}{total}{clr.r} "
+
                     func, msg = option
                     print(f"{prefix}{msg}", flush=True)
 
+                    # powershell handler is the only part of the codebase with proper error handling
+                    # but we still don't utilize Exceptions!
                     try:
                         run(path, script, func)
                     except Exception:
+                        print(f"{prefixerr}{clr.red}An Error occurred unexpectedly")
                         failed += 1
 
-                    time.sleep(0.5)
+                    time.sleep(0.2)
 
             return (
                 total,
