@@ -18,6 +18,8 @@ class clr:
     white = f.WHITE
     yellow = f.LIGHTYELLOW_EX
     gray = f.LIGHTBLACK_EX
+    red = f.LIGHTRED_EX
+    green = f.LIGHTGREEN_EX
 
 class pfx:
     global spacing, uiprefix
