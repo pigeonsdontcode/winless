@@ -1,4 +1,7 @@
+import time
+from app.powershell import run
 from app.menu import (
+    clr,
     fmt,
     title
 )
@@ -8,7 +11,7 @@ from app.logic import (
     change_selection
 )
 
-def run_tui(
+def run_selection(
     term,
     sel,
     options,
@@ -98,3 +101,47 @@ def run_tui(
             # why does it do that? IDK don't ask me
             for _ in range(18):
                 print(' ', flush=True)
+
+def run_tasks(
+    term,
+    tasks,
+    path
+    ) -> tuple:
+
+    with (
+        term.cbreak(),
+        term.hidden_cursor()
+        ):
+
+        while True:
+            total = 0
+
+            for task in tasks:
+                for _ in task[1]:
+                    total += 1
+
+            print(f"{total} task{'s' if total != 1 else ''} found", flush=True)
+
+            current = 0
+            failed = 0
+
+            for task in tasks:
+                name, script = task[0]
+                print(f"\nRunning: {name}", flush=True)
+                for option in task[1]:
+                    current += 1
+                    prefix = f" {clr.gray}{current}{clr.r}/{clr.gray}{total}{clr.r} "
+                    func, msg = option
+                    print(f"{prefix}{msg}", flush=True)
+
+                    try:
+                        run(path, script, func)
+                    except Exception:
+                        failed += 1
+
+                    time.sleep(0.5)
+
+            return (
+                total,
+                failed
+            )
