@@ -1,5 +1,46 @@
 [
     [
+        "updates",
+        [
+            "Disable Updates",
+            "NoUpdate.ps1",
+            [
+                [
+                    "services",
+                    [
+                        "Disable Update-related Services",
+                        "Disabling wuauserv, UsoSvc, BITS, WaaSMedicSvc",
+                        "DisableUpdateServices"
+                    ], false
+                ],
+                [
+                    "poweroptions",
+                    [
+                        "Remove Update options from the power menu",
+                        "Updating Orchestrator\\ShutdownFlyoutOptions Registry Value",
+                        "RemovePowerOptions"
+                    ], false
+                ],
+                [
+                    "pause",
+                    [
+                        "Pause Updates",
+                        "Updating PauseUpdatesExpiryTime Registry Value",
+                        "PauseUpdates"
+                    ], false
+                ],
+                [
+                    "cached",
+                    [
+                        "Delete downloaded/cached updates",
+                        "Removing all downloaded updates",
+                        "DeleteCachedUpdates"
+                    ], false
+                ]
+            ], false
+        ]
+    ],
+    [
         "tempfiles",
         [
             "Delete Temporary files",
