@@ -8,6 +8,7 @@ def exclude(err):
         "RemoveFileSystemItemIOError",
         # empty bin will result in an error
         "FailedToClearRecycleBin",
+        # "CouldNotSetService"
     ]
 
     for exc in exclusionlist:
