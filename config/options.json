@@ -1,19 +1,35 @@
 [
     [
-        "test_option",
+        "tempfiles",
         [
-            "Test Option",
-            "helloworld.ps1",
+            "Delete Temporary files",
+            "NoJunk.ps1",
             [
                 [
-                    "hello_world",
+                    "temp",
                     [
-                        "Print hello world",
-                        "Printing hello world...",
-                        "Test1"
+                        "Clear temporary file directories",
+                        "Deleting TEMP folder contents",
+                        "ClearTemp"
+                    ], false
+                ],
+                [
+                    "prefetch",
+                    [
+                        "Clear prefetch files",
+                        "Deleting Prefetch files",
+                        "ClearPrefetch"
+                    ], false
+                ],
+                [
+                    "recyclebin",
+                    [
+                        "Clear Recycle Bin",
+                        "Emptying Recycle Bin",
+                        "ClearBin"
                     ], false
                 ]
-            ]
+            ], false
         ]
     ]
 ]
