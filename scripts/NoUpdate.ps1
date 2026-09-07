@@ -1,3 +1,9 @@
+function DisableService($name) {
+    Set-Service -Name $name -StartupType Disabled
+    Stop-Service -Name $name -Force
+
+    Write-Host "Service: $name has been disabled"
+}
 
 function DisableUpdateServices() {
     $UpdateSvcList = @(
@@ -9,8 +15,7 @@ function DisableUpdateServices() {
     )
 
     foreach($svc in $UpdateSvcList) {
-        Set-Service -Verbose -Name $svc -StartupType Disabled
-        Stop-Service -Verbose -Name $svc -Force
+        DisableService($svc)
     }
 }
 
@@ -18,7 +23,7 @@ function RemovePowerOptions() {
     $PowerMenuRegPath = "HKLM:\SOFTWARE\Microsoft\WindowsUpdate\Orchestrator"
     $PowerMenuRegKey = "ShutdownFlyoutOptions"
 
-    Set-ItemProperty -Path $PowerMenuRegPath -Name $PowerMenuRegKey -Value 5 -Type DWORD
+    Set-ItemProperty -Path $PowerMenuRegPath -Name $PowerMenuRegKey -Value 5 -Type DWord
     # expected value is a 4-bit binary table / 0000
     # 0 first digit = update & shutdown (this is always a lie, it reboots after update)
     # 0 second digit = shutdown
