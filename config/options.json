@@ -72,5 +72,46 @@
                 ]
             ], false
         ]
+    ],
+    [
+        "services",
+        [
+            "Disable unnecessary services",
+            "NoSvc.ps1",
+            [
+                [
+                    "parentalcontrols",
+                    [
+                        "Disable Parental Controls",
+                        "Disabling service WpcMonSvc",
+                        "DisableParentalControls"
+                    ], false
+                ],
+                [
+                    "deliveryoptimization",
+                    [
+                        "Disable Delivery Optimization",
+                        "Disabling service DoSvc",
+                        "DisableDeliveryOptimization"
+                    ], false
+                ],
+                [
+                    "remotemanagement",
+                    [
+                        "Disable Parental Controls",
+                        "Disabling service WinRM",
+                        "DisableRemoteManagement"
+                    ], false
+                ],
+                [
+                    "userexperiences",
+                    [
+                        "Disable User Experiences telemetry",
+                        "Disabling Connected User Experiences",
+                        "DisableUserExperiences"
+                    ], false
+                ]
+            ], false
+        ]
     ]
 ]
